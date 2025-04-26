@@ -1,8 +1,6 @@
 /* General */
-body, p, h1, h2, h3, h4, h5, h6, input, label, button, a, div, span {
-  font-family: 'Nunito', sans-serif;
-}
 body {
+  font-family: 'Nunito', sans-serif;
   background-image: url('Bg.PNG');
   background-repeat: repeat;
   background-size: 300px 300px; /* atau ukuran sesuai gambar */
@@ -21,7 +19,6 @@ body::before {
   background: rgba(0, 0, 0, 0.4); /* hitam transparan 40% */
   z-index: -1;
 }
-
 .container {
   max-width: 600px;
   margin: 0 auto;
@@ -130,6 +127,9 @@ ul#daftar-antar {
   overflow: hidden;
   z-index: 1000;
   animation: fadeIn 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  max-height: 400px;  /* Menambahkan batasan tinggi untuk popup */
 }
 
 .notes-popup.hidden {
@@ -151,7 +151,7 @@ ul#daftar-antar {
   flex-direction: column;
   gap: 10px;
   overflow-y: auto;  /* Menambahkan scroll vertikal */
-  max-height: 250px;  /* Membatasi tinggi area catatan */
+  flex-grow: 1;  /* Membuat area body mengisi ruang tersisa */
 }
 
 .notes-body input, .notes-body textarea {
