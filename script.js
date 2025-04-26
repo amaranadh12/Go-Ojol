@@ -12,7 +12,6 @@ function tambahOngkir() {
 
   if (dari && ke && !isNaN(ongkir)) {
     riwayatAntar.push({ dari, ke, ongkir });
-
     localStorage.setItem("riwayatAntar", JSON.stringify(riwayatAntar));
 
     document.getElementById("dari").value = "";
@@ -57,7 +56,7 @@ function hitung() {
   let motivasi = "";
 
   if (pendapatanBersih >= 0) {
-    hasil = `Keren! Pengeluaran tertutupi. Modal tidak terpakai.`;
+    hasil = "Keren! Pengeluaran tertutupi. Modal tidak terpakai.";
     if (target && pendapatanBersih >= target) {
       motivasi = "Target penghasilan bersih tercapai! Gas terus!";
     } else if (target) {
@@ -110,8 +109,6 @@ window.addEventListener('DOMContentLoaded', () => {
   const notesList = document.getElementById('notes-list');
 
   loadNotes();
-
-  // Tampilkan icon notes saat pertama kali
   icon.classList.remove('hidden');
 
   minimizeBtn.addEventListener('click', () => {
@@ -134,6 +131,7 @@ window.addEventListener('DOMContentLoaded', () => {
       const date = new Date().toLocaleDateString();
       notes.push({ nama, noWa, isi, date });
       localStorage.setItem('notes', JSON.stringify(notes));
+
       document.getElementById('nama').value = '';
       document.getElementById('no-wa').value = '';
       document.getElementById('isi-catatan').value = '';
@@ -146,6 +144,7 @@ window.addEventListener('DOMContentLoaded', () => {
   function loadNotes() {
     notesList.innerHTML = '';
     const notes = JSON.parse(localStorage.getItem('notes') || '[]');
+
     notes.forEach((note, index) => {
       const div = document.createElement('div');
       div.className = 'note-item';
@@ -160,7 +159,7 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  window.deleteNote = function (index) {
+  window.deleteNote = function(index) {
     const notes = JSON.parse(localStorage.getItem('notes') || '[]');
     notes.splice(index, 1);
     localStorage.setItem('notes', JSON.stringify(notes));
