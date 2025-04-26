@@ -1,6 +1,8 @@
 /* General */
-body {
+body, p, h1, h2, h3, h4, h5, h6, input, label, button, a, div, span {
   font-family: 'Nunito', sans-serif;
+}
+body {
   background-image: url('Bg.PNG');
   background-repeat: repeat;
   background-size: 300px 300px; /* atau ukuran sesuai gambar */
@@ -19,6 +21,7 @@ body::before {
   background: rgba(0, 0, 0, 0.4); /* hitam transparan 40% */
   z-index: -1;
 }
+
 .container {
   max-width: 600px;
   margin: 0 auto;
@@ -128,9 +131,11 @@ ul#daftar-antar {
   z-index: 1000;
   animation: fadeIn 0.3s ease;
 }
+
 .notes-popup.hidden {
   display: none;
 }
+
 .notes-header {
   background-color: #4CAF50;
   color: white;
@@ -139,18 +144,23 @@ ul#daftar-antar {
   justify-content: space-between;
   align-items: center;
 }
+
 .notes-body {
   padding: 10px;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  overflow-y: auto;  /* Menambahkan scroll vertikal */
+  max-height: 250px;  /* Membatasi tinggi area catatan */
 }
+
 .notes-body input, .notes-body textarea {
   width: 100%;
   padding: 8px;
   border: 1px solid #ddd;
   border-radius: 8px;
 }
+
 .notes-body button#save-note {
   background-color: #4CAF50;
   color: white;
@@ -159,15 +169,18 @@ ul#daftar-antar {
   border-radius: 10px;
   cursor: pointer;
 }
+
 .notes-body button#save-note:hover {
   background-color: #45a049;
 }
+
 #notes-list {
   margin-top: 15px;
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
+
 .note-item {
   background: #f9f9f9;
   padding: 10px;
@@ -175,10 +188,12 @@ ul#daftar-antar {
   border-radius: 10px;
   position: relative;
 }
+
 .note-item a {
   color: #2196F3;
   text-decoration: none;
 }
+
 .delete-note {
   position: absolute;
   top: 5px;
@@ -188,14 +203,6 @@ ul#daftar-antar {
   color: red;
   font-size: 16px;
   cursor: pointer;
-}
-
-/* Scroll on note items */
-.note-item p {
-  max-height: 150px;   /* batas tinggi maksimum */
-  overflow-y: auto;    /* munculin scroll kalau isinya panjang */
-  margin-top: 5px;
-  white-space: pre-wrap; /* supaya enter / baris baru tetap kelihatan */
 }
 
 .notes-icon {
@@ -213,9 +220,11 @@ ul#daftar-antar {
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
+
 .notes-icon.hidden {
   display: none;
 }
+
 .notes-icon img {
   width: 30px;
   height: 30px;
