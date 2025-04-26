@@ -106,4 +106,73 @@ window.onload = function () {
     riwayatAntar = JSON.parse(localStorage.getItem("riwayatAntar"));
     hitung();
   }
+  // Elements
+const popup = document.getElementById('notes-popup');
+const icon = document.getElementById('notes-icon');
+const minimizeBtn = document.getElementById('minimize-btn');
+const saveBtn = document.getElementById('save-note');
+const notesList = document.getElementById('notes-list');
+
+// Load saved notes
+window.onload = () => {
+  loadNotes();
+};
+
+// Minimize popup
+minimizeBtn.addEventListener('click', () => {
+  popup.classList.add('hidden');
+  icon.classList.remove('hidden');
+});
+
+// Show popup
+icon.addEventListener('click', () => {
+  popup.classList.remove('hidden');
+  icon.classList.add('hidden');
+});
+
+// Save note
+saveBtn.addEventListener('click', () => {
+  const nama = document.getElementById('nama').value.trim();
+  const noWa = document.getElementById('no-wa').value.trim();
+  const isi = document.getElementById('isi-catatan').value.trim();
+
+  if (nama && noWa && isi) {
+    const notes = JSON.parse(localStorage.getItem('notes') || '[]');
+    const date = new Date().toLocaleDateString();
+    notes.push({ nama, noWa, isi, date });
+    localStorage.setItem('notes', JSON.stringify(notes));
+    document.getElementById('nama').value = '';
+    document.getElementById('no-wa').value = '';
+    document.getElementById('isi-catatan').value = '';
+    loadNotes();
+  } else {
+    alert('Isi semua field ya!');
+  }
+});
+
+// Load and display notes
+function loadNotes() {
+  notesList.innerHTML = '';
+  const notes = JSON.parse(localStorage.getItem('notes') || '[]');
+  notes.forEach((note, index) => {
+    const div = document.createElement('div');
+    div.className = 'note-item';
+    div.innerHTML = `
+      <small><b>${note.date}</b></small><br/>
+      <b>${note.nama}</b><br/>
+      <a href="https://wa.me/${note.noWa}" target="_blank">${note.noWa}</a><br/>
+      <p>${note.isi}</p>
+      <button class="delete-note" onclick="deleteNote(${index})">&times;</button>
+    `;
+    notesList.appendChild(div);
+  });
+}
+
+// Delete note
+function deleteNote(index) {
+  const notes = JSON.parse(localStorage.getItem('notes') || '[]');
+  notes.splice(index, 1);
+  localStorage.setItem('notes', JSON.stringify(notes));
+  loadNotes();
+}
 };
