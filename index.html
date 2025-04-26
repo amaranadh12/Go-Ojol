@@ -82,25 +82,35 @@
       <button class="btn-secondary full-width" onclick="reset()">Reset Data</button>
     </div>
   </div>
-<!-- Popup Notes -->
-<div id="notes-popup" class="notes-popup hidden">
-  <div class="notes-header">
-    <h3>Catatan Driver</h3>
-    <button id="minimize-btn">–</button>
-  </div>
-  <div class="notes-body">
-    <input type="text" id="nama" placeholder="Nama" />
-    <input type="text" id="no-wa" placeholder="No. WhatsApp (62xxx)" />
-    <textarea id="isi-catatan" placeholder="Isi Catatan"></textarea>
-    <button id="save-note">Simpan Catatan</button>
-    <div id="notes-list"></div>
-  </div>
-</div>
 
-<!-- Minimized Icon -->
-<div id="notes-icon" class="notes-icon hidden">
-  <img src="https://img.icons8.com/ios-filled/50/000000/note.png" alt="Notes Icon" />
-</div>
+  <!-- Popup Notes -->
+  <div id="notes-popup" class="notes-popup hidden">
+    <div class="notes-header">
+      <h3>Catatan Driver</h3>
+      <button id="minimize-btn">–</button>
+    </div>
+    <div class="notes-body">
+      <input type="text" id="nama" placeholder="Nama" />
+      <input type="text" id="no-wa" placeholder="No. WhatsApp (62xxx)" />
+      <textarea id="isi-catatan" placeholder="Isi Catatan"></textarea>
+      <button id="save-note">Simpan Catatan</button>
+      <div id="notes-list"></div>
+    </div>
+  </div>
+
+  <!-- Minimized Icon -->
+  <div id="notes-icon" class="notes-icon hidden">
+    <img src="https://img.icons8.com/ios-filled/50/000000/note.png" alt="Notes Icon" />
+  </div>
+
+  <!-- Modal untuk lihat isi notes -->
+  <div id="note-modal" class="modal hidden">
+    <div class="modal-content">
+      <span id="close-modal" class="close-button">&times;</span>
+      <p id="modal-note-content"></p>
+    </div>
+  </div>
+
   <script src="script.js"></script>
 </body>
 
