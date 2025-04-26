@@ -1,9 +1,11 @@
 /* General */
-body {
+body, p, h1, h2, h3, h4, h5, h6, input, label, button, a, div, span {
   font-family: 'Nunito', sans-serif;
+}
+body {
   background-image: url('Bg.PNG');
   background-repeat: repeat;
-  background-size: 300px 300px; /* atau ukuran sesuai gambar */
+  background-size: 300px 300px;
   background-position: top left;
   margin: 0;
   padding: 20px;
@@ -16,7 +18,7 @@ body::before {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.4); /* hitam transparan 40% */
+  background: rgba(0, 0, 0, 0.4);
   z-index: -1;
 }
 .container {
@@ -43,13 +45,11 @@ h1, h2 {
 .input-group {
   margin-bottom: 15px;
 }
-
 .input-group label {
   display: block;
   margin-bottom: 5px;
   font-weight: 600;
 }
-
 .input-group input {
   width: 100%;
   padding: 10px;
@@ -57,7 +57,6 @@ h1, h2 {
   border-radius: 8px;
   transition: border-color 0.3s;
 }
-
 .input-group input:focus {
   border-color: #4CAF50;
   outline: none;
@@ -69,7 +68,6 @@ h1, h2 {
   justify-content: center;
   margin-top: 20px;
 }
-
 .btn-primary, .btn-secondary {
   padding: 12px;
   border: none;
@@ -79,31 +77,25 @@ h1, h2 {
   transition: background 0.3s, transform 0.2s;
   font-size: 16px;
 }
-
 .full-width {
   width: 100%;
 }
-
 .btn-primary {
   background: #27ae60;
   color: #fff;
 }
-
 .btn-primary:hover {
   background: #219150;
   transform: scale(1.03);
 }
-
 .btn-secondary {
   background: #e74c3c;
   color: #fff;
 }
-
 .btn-secondary:hover {
   background: #c0392b;
   transform: scale(1.03);
 }
-
 .reset-wrapper {
   margin-top: 30px;
 }
@@ -114,28 +106,26 @@ ul#daftar-antar {
   padding-left: 20px;
 }
 
-/* Notes Popup Style */
+/* Notes Popup */
 .notes-popup {
   position: fixed;
   bottom: 80px;
   right: 20px;
   width: 300px;
+  height: 400px; /* Tetap */
   background: white;
   border: 2px solid #4CAF50;
   border-radius: 15px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
   overflow: hidden;
   z-index: 1000;
-  animation: fadeIn 0.3s ease;
   display: flex;
   flex-direction: column;
-  max-height: 400px;  /* Menambahkan batasan tinggi untuk popup */
+  animation: fadeIn 0.3s ease;
 }
-
 .notes-popup.hidden {
   display: none;
 }
-
 .notes-header {
   background-color: #4CAF50;
   color: white;
@@ -144,23 +134,23 @@ ul#daftar-antar {
   justify-content: space-between;
   align-items: center;
 }
-
 .notes-body {
+  flex: 1;
   padding: 10px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  overflow-y: auto;  /* Menambahkan scroll vertikal */
-  flex-grow: 1;  /* Membuat area body mengisi ruang tersisa */
+  overflow-y: auto;
 }
-
 .notes-body input, .notes-body textarea {
   width: 100%;
   padding: 8px;
   border: 1px solid #ddd;
   border-radius: 8px;
+  margin-bottom: 10px;
 }
-
+.notes-body textarea {
+  min-height: 80px;
+}
 .notes-body button#save-note {
   background-color: #4CAF50;
   color: white;
@@ -169,31 +159,30 @@ ul#daftar-antar {
   border-radius: 10px;
   cursor: pointer;
 }
-
 .notes-body button#save-note:hover {
   background-color: #45a049;
 }
-
 #notes-list {
-  margin-top: 15px;
+  margin-top: 10px;
+  flex: 1;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  padding-right: 5px;
 }
-
 .note-item {
   background: #f9f9f9;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 10px;
   position: relative;
+  word-wrap: break-word;
 }
-
 .note-item a {
   color: #2196F3;
   text-decoration: none;
 }
-
 .delete-note {
   position: absolute;
   top: 5px;
@@ -205,6 +194,7 @@ ul#daftar-antar {
   cursor: pointer;
 }
 
+/* Notes Icon */
 .notes-icon {
   position: fixed;
   bottom: 20px;
@@ -220,14 +210,24 @@ ul#daftar-antar {
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
-
 .notes-icon.hidden {
   display: none;
 }
-
 .notes-icon img {
   width: 30px;
   height: 30px;
+}
+
+/* Scrollbar untuk notes list */
+#notes-list::-webkit-scrollbar {
+  width: 6px;
+}
+#notes-list::-webkit-scrollbar-thumb {
+  background-color: #4CAF50;
+  border-radius: 10px;
+}
+#notes-list::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 @keyframes fadeIn {
