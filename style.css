@@ -1,8 +1,6 @@
 /* General */
 body {
-  body, p, h1, h2, h3, h4, h5, h6, input, label, button, a, div, span {
   font-family: 'Nunito', sans-serif;
-  }
   background-image: url('Bg.PNG');
   background-repeat: repeat;
   background-size: 300px 300px; /* atau ukuran sesuai gambar */
@@ -115,6 +113,7 @@ ul#daftar-antar {
   list-style-type: none;
   padding-left: 20px;
 }
+
 /* Notes Popup Style */
 .notes-popup {
   position: fixed;
@@ -190,6 +189,15 @@ ul#daftar-antar {
   font-size: 16px;
   cursor: pointer;
 }
+
+/* Scroll on note items */
+.note-item p {
+  max-height: 150px;   /* batas tinggi maksimum */
+  overflow-y: auto;    /* munculin scroll kalau isinya panjang */
+  margin-top: 5px;
+  white-space: pre-wrap; /* supaya enter / baris baru tetap kelihatan */
+}
+
 .notes-icon {
   position: fixed;
   bottom: 20px;
