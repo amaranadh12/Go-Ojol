@@ -1,7 +1,7 @@
 let riwayatAntar = JSON.parse(localStorage.getItem("riwayatAntar")) || [];
-let editIndex = -1; // Tambahan untuk fitur edit notes
+let daftarBarang = [];
+let editIndex = -1;
 
-// Fungsi format rupiah
 function formatRupiah(angka) {
   return 'Rp ' + angka.toLocaleString('id-ID');
 }
@@ -76,24 +76,9 @@ function hitung() {
 function reset() {
   riwayatAntar = [];
   localStorage.removeItem("riwayatAntar");
-
-  document.getElementById("dari").value = "";
-  document.getElementById("ke").value = "";
-  document.getElementById("ongkir").value = "";
-  document.getElementById("modal").value = "";
-  document.getElementById("bensin").value = "";
-  document.getElementById("jajan").value = "";
-  document.getElementById("target").value = "";
-
-  document.getElementById("info-ongkir").innerText = "";
-  document.getElementById("daftar-antar").innerHTML = "";
-  document.getElementById("info-iuran").innerText = "";
-  document.getElementById("info-operasional").innerText = "";
-  document.getElementById("pendapatan-kotor").innerText = "";
-  document.getElementById("pendapatan-bersih").innerText = "";
-  document.getElementById("hasil-final").innerText = "";
-  document.getElementById("motivasi").innerText = "";
-  document.getElementById("uang-sekarang").innerText = "";
+  document.querySelectorAll('input').forEach(input => input.value = '');
+  document.querySelectorAll('p').forEach(p => p.innerText = '');
+  document.getElementById('daftar-antar').innerHTML = '';
 }
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -102,91 +87,116 @@ window.addEventListener('DOMContentLoaded', () => {
     hitung();
   }
 
-  // Notes Popup
   const popup = document.getElementById('notes-popup');
   const icon = document.getElementById('notes-icon');
   const minimizeBtn = document.getElementById('minimize-btn');
-  const saveBtn = document.getElementById('save-note');
-  const notesList = document.getElementById('notes-list');
 
   loadNotes();
   icon.classList.remove('hidden');
 
   minimizeBtn.addEventListener('click', () => {
-    popup.classList.add('hidden');
+    popup.style.display = 'none';
     icon.classList.remove('hidden');
   });
 
   icon.addEventListener('click', () => {
-    popup.classList.remove('hidden');
+    popup.style.display = 'block';
     icon.classList.add('hidden');
   });
+});
 
-  saveBtn.addEventListener('click', () => {
-    const nama = document.getElementById('nama').value.trim();
-    const noWa = document.getElementById('no-wa').value.trim();
-    const isi = document.getElementById('isi-catatan').value.trim();
+// NOTE SYSTEM
+document.getElementById('tambah-barang').addEventListener('click', () => {
+  const namaBarang = document.getElementById('nama-barang').value.trim();
+  const hargaBarang = parseInt(document.getElementById('harga-barang').value);
 
-    if (nama && noWa && isi) {
-      const notes = JSON.parse(localStorage.getItem('notes') || '[]');
-      const date = new Date().toLocaleDateString();
+  if (namaBarang && !isNaN(hargaBarang)) {
+    daftarBarang.push({ nama: namaBarang, harga: hargaBarang });
+    document.getElementById('nama-barang').value = '';
+    document.getElementById('harga-barang').value = '';
+    renderBarangList();
+  } else {
+    alert('Isi nama barang dan harga dengan benar.');
+  }
+});
 
-      if (editIndex === -1) {
-        // Tambah catatan baru
-        notes.push({ nama, noWa, isi, date });
-      } else {
-        // Update catatan yang di-edit
-        notes[editIndex] = { nama, noWa, isi, date };
-        editIndex = -1; // Reset setelah edit
-      }
+function renderBarangList() {
+  const barangList = document.getElementById('barang-list');
+  barangList.innerHTML = daftarBarang.map((b, i) => 
+    `<div>${i+1}. ${b.nama} - ${formatRupiah(b.harga)} 
+     <button onclick="hapusBarang(${i})" style="color:red;">Hapus</button></div>`).join('');
+}
 
-      localStorage.setItem('notes', JSON.stringify(notes));
+function hapusBarang(index) {
+  daftarBarang.splice(index, 1);
+  renderBarangList();
+}
 
-      document.getElementById('nama').value = '';
-      document.getElementById('no-wa').value = '';
-      document.getElementById('isi-catatan').value = '';
-      loadNotes();
-    } else {
-      alert('Isi semua field ya!');
-    }
-  });
-
-  function loadNotes() {
-    notesList.innerHTML = '';
-    const notes = JSON.parse(localStorage.getItem('notes') || '[]');
-
-    notes.forEach((note, index) => {
-      const div = document.createElement('div');
-      div.className = 'note-item';
-      div.innerHTML = `
-        <small><b>${note.date}</b></small><br/>
-        <b>${note.nama}</b><br/>
-        <a href="https://wa.me/${note.noWa}" target="_blank">${note.noWa}</a><br/>
-        <p>${note.isi}</p>
-        <button class="edit-note" onclick="editNote(${index})">Edit</button>
-        <button class="delete-note" onclick="deleteNote(${index})">&times;</button>
-      `;
-      notesList.appendChild(div);
-    });
+document.getElementById('save-note').addEventListener('click', () => {
+  const catatanTambahan = document.getElementById('catatan-tambahan').value.trim();
+  if (daftarBarang.length === 0) {
+    alert('Minimal masukkan 1 barang.');
+    return;
   }
 
-  window.deleteNote = function(index) {
-    const notes = JSON.parse(localStorage.getItem('notes') || '[]');
-    notes.splice(index, 1);
-    localStorage.setItem('notes', JSON.stringify(notes));
-    loadNotes();
+  const totalHarga = daftarBarang.reduce((sum, b) => sum + b.harga, 0);
+  const date = new Date().toLocaleString('id-ID');
+
+  const notes = JSON.parse(localStorage.getItem('notes') || '[]');
+
+  const newNote = {
+    barang: daftarBarang,
+    totalHarga,
+    catatanTambahan,
+    date
   };
 
-  window.editNote = function(index) {
-    const notes = JSON.parse(localStorage.getItem('notes') || '[]');
-    const note = notes[index];
+  if (editIndex === -1) {
+    notes.push(newNote);
+  } else {
+    notes[editIndex] = newNote;
+    editIndex = -1;
+  }
 
-    document.getElementById('nama').value = note.nama;
-    document.getElementById('no-wa').value = note.noWa;
-    document.getElementById('isi-catatan').value = note.isi;
-
-    editIndex = index; // Aktifkan mode edit
-    popup.classList.remove('hidden');
-    icon.classList.add('hidden');
-  };
+  localStorage.setItem('notes', JSON.stringify(notes));
+  daftarBarang = [];
+  document.getElementById('catatan-tambahan').value = '';
+  renderBarangList();
+  loadNotes();
 });
+
+function loadNotes() {
+  const notesList = document.getElementById('notes-list');
+  notesList.innerHTML = '';
+  const notes = JSON.parse(localStorage.getItem('notes') || '[]');
+
+  notes.forEach((note, index) => {
+    const div = document.createElement('div');
+    div.className = 'note-item';
+    div.innerHTML = `
+      <small><b>${note.date}</b></small><br/>
+      <ul>${note.barang.map(b => `<li>${b.nama} - ${formatRupiah(b.harga)}</li>`).join('')}</ul>
+      <b>Total: ${formatRupiah(note.totalHarga)}</b><br/>
+      ${note.catatanTambahan ? `<i>Catatan: ${note.catatanTambahan}</i><br/>` : ''}
+      <button class="edit-note" onclick="editNote(${index})">Edit</button>
+      <button class="delete-note" onclick="deleteNote(${index})">&times;</button>
+    `;
+    notesList.appendChild(div);
+  });
+}
+
+window.deleteNote = function(index) {
+  const notes = JSON.parse(localStorage.getItem('notes') || '[]');
+  notes.splice(index, 1);
+  localStorage.setItem('notes', JSON.stringify(notes));
+  loadNotes();
+};
+
+window.editNote = function(index) {
+  const notes = JSON.parse(localStorage.getItem('notes') || '[]');
+  const note = notes[index];
+  daftarBarang = note.barang;
+  document.getElementById('catatan-tambahan').value = note.catatanTambahan;
+  renderBarangList();
+  editIndex = index;
+};
