@@ -2,6 +2,7 @@
 body, p, h1, h2, h3, h4, h5, h6, input, label, button, a, div, span {
   font-family: 'Nunito', sans-serif;
 }
+
 body {
   background-image: url('Bg.PNG');
   background-repeat: repeat;
@@ -11,6 +12,7 @@ body {
   padding: 20px;
   color: #333;
 }
+
 body::before {
   content: "";
   position: fixed;
@@ -21,6 +23,7 @@ body::before {
   background: rgba(0, 0, 0, 0.4);
   z-index: -1;
 }
+
 .container {
   max-width: 600px;
   margin: 0 auto;
@@ -45,11 +48,13 @@ h1, h2 {
 .input-group {
   margin-bottom: 15px;
 }
+
 .input-group label {
   display: block;
   margin-bottom: 5px;
   font-weight: 600;
 }
+
 .input-group input {
   width: 100%;
   padding: 10px;
@@ -57,6 +62,7 @@ h1, h2 {
   border-radius: 8px;
   transition: border-color 0.3s;
 }
+
 .input-group input:focus {
   border-color: #4CAF50;
   outline: none;
@@ -68,6 +74,7 @@ h1, h2 {
   justify-content: center;
   margin-top: 20px;
 }
+
 .btn-primary, .btn-secondary {
   padding: 12px;
   border: none;
@@ -77,25 +84,31 @@ h1, h2 {
   transition: background 0.3s, transform 0.2s;
   font-size: 16px;
 }
+
 .full-width {
   width: 100%;
 }
+
 .btn-primary {
   background: #27ae60;
   color: #fff;
 }
+
 .btn-primary:hover {
   background: #219150;
   transform: scale(1.03);
 }
+
 .btn-secondary {
   background: #e74c3c;
   color: #fff;
 }
+
 .btn-secondary:hover {
   background: #c0392b;
   transform: scale(1.03);
 }
+
 .reset-wrapper {
   margin-top: 30px;
 }
@@ -112,7 +125,7 @@ ul#daftar-antar {
   bottom: 80px;
   right: 20px;
   width: 300px;
-  height: 400px; /* Tetap */
+  height: 500px; /* Updated for larger popup */
   background: white;
   border: 2px solid #4CAF50;
   border-radius: 15px;
@@ -123,9 +136,11 @@ ul#daftar-antar {
   flex-direction: column;
   animation: fadeIn 0.3s ease;
 }
+
 .notes-popup.hidden {
   display: none;
 }
+
 .notes-header {
   background-color: #4CAF50;
   color: white;
@@ -134,13 +149,15 @@ ul#daftar-antar {
   justify-content: space-between;
   align-items: center;
 }
+
 .notes-body {
   flex: 1;
   padding: 10px;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
+  overflow-y: auto; /* Scrollable if content overflows */
 }
+
 .notes-body input, .notes-body textarea {
   width: 100%;
   padding: 8px;
@@ -148,9 +165,11 @@ ul#daftar-antar {
   border-radius: 8px;
   margin-bottom: 10px;
 }
+
 .notes-body textarea {
   min-height: 80px;
 }
+
 .notes-body button#save-note {
   background-color: #4CAF50;
   color: white;
@@ -159,9 +178,11 @@ ul#daftar-antar {
   border-radius: 10px;
   cursor: pointer;
 }
+
 .notes-body button#save-note:hover {
   background-color: #45a049;
 }
+
 #notes-list {
   margin-top: 10px;
   flex: 1;
@@ -171,6 +192,7 @@ ul#daftar-antar {
   gap: 10px;
   padding-right: 5px;
 }
+
 .note-item {
   background: #f9f9f9;
   padding: 10px;
@@ -179,10 +201,12 @@ ul#daftar-antar {
   position: relative;
   word-wrap: break-word;
 }
+
 .note-item a {
   color: #2196F3;
   text-decoration: none;
 }
+
 .delete-note {
   position: absolute;
   top: 5px;
@@ -192,6 +216,7 @@ ul#daftar-antar {
   color: red;
   font-size: 16px;
   cursor: pointer;
+}
 
 /* Notes Icon */
 .notes-icon {
@@ -209,9 +234,11 @@ ul#daftar-antar {
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
+
 .notes-icon.hidden {
   display: none;
 }
+
 .notes-icon img {
   width: 30px;
   height: 30px;
@@ -221,58 +248,17 @@ ul#daftar-antar {
 #notes-list::-webkit-scrollbar {
   width: 6px;
 }
+
 #notes-list::-webkit-scrollbar-thumb {
   background-color: #4CAF50;
   border-radius: 10px;
 }
+
 #notes-list::-webkit-scrollbar-track {
   background: transparent;
-}
-
-/* Modal untuk menampilkan isi notes lebih besar */
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 2000;
-}
-.modal.hidden {
-  display: none;
-}
-.modal-content {
-  background: white;
-  padding: 20px;
-  width: 90%;
-  max-width: 500px;
-  max-height: 80vh;
-  overflow-y: auto;
-  border-radius: 12px;
-  position: relative;
-}
-.close-button {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  font-size: 24px;
-  font-weight: bold;
-  cursor: pointer;
-  color: #333;
-}
-.close-button:hover {
-  color: red;
-}
-.modal-content p {
-  white-space: pre-wrap;
-  word-wrap: break-word;
 }
 
 @keyframes fadeIn {
   from {opacity: 0; transform: scale(0.9);}
   to {opacity: 1; transform: scale(1);}
-  }
+}
