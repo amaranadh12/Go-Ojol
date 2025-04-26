@@ -1,4 +1,5 @@
 let riwayatAntar = JSON.parse(localStorage.getItem("riwayatAntar")) || [];
+let editIndex = -1; // Tambahan untuk fitur edit notes
 
 // Fungsi format rupiah
 function formatRupiah(angka) {
@@ -129,7 +130,16 @@ window.addEventListener('DOMContentLoaded', () => {
     if (nama && noWa && isi) {
       const notes = JSON.parse(localStorage.getItem('notes') || '[]');
       const date = new Date().toLocaleDateString();
-      notes.push({ nama, noWa, isi, date });
+
+      if (editIndex === -1) {
+        // Tambah catatan baru
+        notes.push({ nama, noWa, isi, date });
+      } else {
+        // Update catatan yang di-edit
+        notes[editIndex] = { nama, noWa, isi, date };
+        editIndex = -1; // Reset setelah edit
+      }
+
       localStorage.setItem('notes', JSON.stringify(notes));
 
       document.getElementById('nama').value = '';
@@ -153,6 +163,7 @@ window.addEventListener('DOMContentLoaded', () => {
         <b>${note.nama}</b><br/>
         <a href="https://wa.me/${note.noWa}" target="_blank">${note.noWa}</a><br/>
         <p>${note.isi}</p>
+        <button class="edit-note" onclick="editNote(${index})">Edit</button>
         <button class="delete-note" onclick="deleteNote(${index})">&times;</button>
       `;
       notesList.appendChild(div);
@@ -164,5 +175,18 @@ window.addEventListener('DOMContentLoaded', () => {
     notes.splice(index, 1);
     localStorage.setItem('notes', JSON.stringify(notes));
     loadNotes();
+  };
+
+  window.editNote = function(index) {
+    const notes = JSON.parse(localStorage.getItem('notes') || '[]');
+    const note = notes[index];
+
+    document.getElementById('nama').value = note.nama;
+    document.getElementById('no-wa').value = note.noWa;
+    document.getElementById('isi-catatan').value = note.isi;
+
+    editIndex = index; // Aktifkan mode edit
+    popup.classList.remove('hidden');
+    icon.classList.add('hidden');
   };
 });
