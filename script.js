@@ -13,7 +13,6 @@ function tambahOngkir() {
   if (dari && ke && !isNaN(ongkir)) {
     riwayatAntar.push({ dari, ke, ongkir });
 
-    // Simpan data ke localStorage
     localStorage.setItem("riwayatAntar", JSON.stringify(riwayatAntar));
 
     document.getElementById("dari").value = "";
@@ -74,12 +73,10 @@ function hitung() {
   document.getElementById("motivasi").innerText = motivasi;
 }
 
-// Fungsi reset untuk menghapus data dan localStorage
 function reset() {
   riwayatAntar = [];
-  localStorage.removeItem("riwayatAntar");  // Menghapus data dari localStorage
+  localStorage.removeItem("riwayatAntar");
 
-  // Reset nilai inputan
   document.getElementById("dari").value = "";
   document.getElementById("ke").value = "";
   document.getElementById("ongkir").value = "";
@@ -88,7 +85,6 @@ function reset() {
   document.getElementById("jajan").value = "";
   document.getElementById("target").value = "";
 
-  // Reset informasi lainnya
   document.getElementById("info-ongkir").innerText = "";
   document.getElementById("daftar-antar").innerHTML = "";
   document.getElementById("info-iuran").innerText = "";
@@ -100,36 +96,34 @@ function reset() {
   document.getElementById("uang-sekarang").innerText = "";
 }
 
-// Menampilkan data yang disimpan di localStorage saat halaman dimuat
 window.addEventListener('DOMContentLoaded', () => {
   if (localStorage.getItem("riwayatAntar")) {
     riwayatAntar = JSON.parse(localStorage.getItem("riwayatAntar"));
     hitung();
   }
 
-  // --- Bagian Notes ---
+  // Notes Popup
   const popup = document.getElementById('notes-popup');
   const icon = document.getElementById('notes-icon');
   const minimizeBtn = document.getElementById('minimize-btn');
   const saveBtn = document.getElementById('save-note');
   const notesList = document.getElementById('notes-list');
 
-  // Load notes awal
   loadNotes();
 
-  // Event minimize
+  // Tampilkan icon notes saat pertama kali
+  icon.classList.remove('hidden');
+
   minimizeBtn.addEventListener('click', () => {
     popup.classList.add('hidden');
     icon.classList.remove('hidden');
   });
 
-  // Event buka popup
   icon.addEventListener('click', () => {
     popup.classList.remove('hidden');
     icon.classList.add('hidden');
   });
 
-  // Event save note
   saveBtn.addEventListener('click', () => {
     const nama = document.getElementById('nama').value.trim();
     const noWa = document.getElementById('no-wa').value.trim();
