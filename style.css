@@ -1,0 +1,117 @@
+/* General */
+body {
+  body, p, h1, h2, h3, h4, h5, h6, input, label, button, a, div, span {
+  font-family: 'Nunito', sans-serif;
+  }
+  background-image: url('Bg.PNG');
+  background-repeat: repeat;
+  background-size: 300px 300px; /* atau ukuran sesuai gambar */
+  background-position: top left;
+  margin: 0;
+  padding: 20px;
+  color: #333;
+}
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4); /* hitam transparan 40% */
+  z-index: -1;
+}
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Title */
+h1, h2 {
+  text-align: center;
+  color: #2c3e50;
+}
+
+/* Sections */
+.form-section, .hasil-section {
+  background: #ffffff;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+/* Inputs */
+.input-group {
+  margin-bottom: 15px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  transition: border-color 0.3s;
+}
+
+.input-group input:focus {
+  border-color: #4CAF50;
+  outline: none;
+}
+
+/* Buttons */
+.button-group {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.btn-primary, .btn-secondary {
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+  font-size: 16px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.btn-primary {
+  background: #27ae60;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: #219150;
+  transform: scale(1.03);
+}
+
+.btn-secondary {
+  background: #e74c3c;
+  color: #fff;
+}
+
+.btn-secondary:hover {
+  background: #c0392b;
+  transform: scale(1.03);
+}
+
+.reset-wrapper {
+  margin-top: 30px;
+}
+
+/* List styling */
+ul#daftar-antar {
+  list-style-type: none;
+  padding-left: 20px;
+}

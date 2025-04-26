@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <link rel="icon" href="1.png" sizes="32x32">
+  <link rel="icon" href="1.png" sizes="192x192">
+  <link rel="apple-touch-icon" href="1.png">
+  <link rel="manifest" href="manifest.json">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Go Go Ojol</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container">
+    <h1 style="color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.6);">Angsana Delivery Orders Tracker</h1>
+
+    <section class="form-section">
+      <h2>Tambah Orderan</h2>
+      <div class="input-group">
+        <label for="dari">Antar Dari:</label>
+        <input type="text" id="dari" placeholder="Contoh: Pasar" />
+      </div>
+
+      <div class="input-group">
+        <label for="ke">Antar Ke:</label>
+        <input type="text" id="ke" placeholder="Contoh: Rumah" />
+      </div>
+
+      <div class="input-group">
+        <label for="ongkir">Ongkir (Rp):</label>
+        <input type="number" id="ongkir" placeholder="Misal: 12000" />
+      </div>
+
+      <button class="btn-primary full-width" onclick="tambahOngkir()">Tambah Orderan</button>
+    </section>
+
+    <section class="form-section">
+      <h2>Biaya Operasional</h2>
+
+      <div class="input-group">
+        <label for="modal">Modal Awal (Rp):</label>
+        <input type="number" id="modal" placeholder="Misal: 50000" />
+      </div>
+
+      <div class="input-group">
+        <label for="bensin">Biaya Bensin (Rp):</label>
+        <input type="number" id="bensin" placeholder="Misal: 30000" />
+      </div>
+
+      <div class="input-group">
+        <label for="jajan">Jajan/Pengeluaran Lain (Rp):</label>
+        <input type="number" id="jajan" placeholder="Misal: 10000" />
+      </div>
+
+      <div class="input-group">
+        <label for="target">Target Penghasilan Bersih (opsional):</label>
+        <input type="number" id="target" placeholder="Misal: 30000" />
+      </div>
+
+      <div class="button-group">
+        <button class="btn-primary" onclick="hitung()">Hitung</button>
+      </div>
+    </section>
+
+    <section class="hasil-section">
+      <h2>Hasil Hari Ini</h2>
+      <p id="info-ongkir"></p>
+      <ul id="daftar-antar"></ul>
+      <p id="info-iuran"></p>
+      <p id="info-operasional"></p>
+      <p id="pendapatan-kotor"></p>
+      <p id="pendapatan-bersih"></p>
+      <p id="hasil-final"></p>
+      <p id="motivasi"></p>
+      <p id="uang-sekarang"></p>
+    </section>
+
+    <div class="reset-wrapper">
+      <button class="btn-secondary full-width" onclick="reset()">Reset Data</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
