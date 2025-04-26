@@ -100,27 +100,36 @@ function reset() {
   document.getElementById("uang-sekarang").innerText = "";
 }
 
-// Notes popup logic
-function setupNotes() {
+// Menampilkan data yang disimpan di localStorage saat halaman dimuat
+window.addEventListener('DOMContentLoaded', () => {
+  if (localStorage.getItem("riwayatAntar")) {
+    riwayatAntar = JSON.parse(localStorage.getItem("riwayatAntar"));
+    hitung();
+  }
+
+  // --- Bagian Notes ---
   const popup = document.getElementById('notes-popup');
   const icon = document.getElementById('notes-icon');
   const minimizeBtn = document.getElementById('minimize-btn');
   const saveBtn = document.getElementById('save-note');
   const notesList = document.getElementById('notes-list');
 
-  // Minimize popup
+  // Load notes awal
+  loadNotes();
+
+  // Event minimize
   minimizeBtn.addEventListener('click', () => {
     popup.classList.add('hidden');
     icon.classList.remove('hidden');
   });
 
-  // Show popup
+  // Event buka popup
   icon.addEventListener('click', () => {
     popup.classList.remove('hidden');
     icon.classList.add('hidden');
   });
 
-  // Save note
+  // Event save note
   saveBtn.addEventListener('click', () => {
     const nama = document.getElementById('nama').value.trim();
     const noWa = document.getElementById('no-wa').value.trim();
@@ -140,10 +149,6 @@ function setupNotes() {
     }
   });
 
-  // Load saved notes
-  loadNotes();
-
-  // Load and display notes
   function loadNotes() {
     notesList.innerHTML = '';
     const notes = JSON.parse(localStorage.getItem('notes') || '[]');
@@ -161,20 +166,10 @@ function setupNotes() {
     });
   }
 
-  // Delete note
-  window.deleteNote = function(index) {
+  window.deleteNote = function (index) {
     const notes = JSON.parse(localStorage.getItem('notes') || '[]');
     notes.splice(index, 1);
     localStorage.setItem('notes', JSON.stringify(notes));
     loadNotes();
   };
-}
-
-// Menampilkan data yang disimpan di localStorage saat halaman dimuat
-window.onload = function () {
-  if (localStorage.getItem("riwayatAntar")) {
-    riwayatAntar = JSON.parse(localStorage.getItem("riwayatAntar"));
-    hitung();
-  }
-  setupNotes();
-};
+});
