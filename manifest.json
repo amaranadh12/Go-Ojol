@@ -2,7 +2,7 @@
   "name": "Go Go Ojol Profit Tracking",
   "short_name": "Go Go Ojol",
   "description": "Delivery Tracking for drivers (Angsana Delivery Com.) beta version",
-  "start_url": "https://amaranadh12.github.io/Go-Ojol/",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#000000",
