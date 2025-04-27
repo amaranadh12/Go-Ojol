@@ -222,8 +222,8 @@ ul#daftar-antar {
 /* Edit Note */
 .edit-note {
   position: absolute;
-  top: 5px;
-  left: 10px;
+  bottom: 5px; /* Jarak dari bawah */
+  right: 10px; /* Jarak dari kanan */
   background: transparent;
   border: none;
   color: #4CAF50;
