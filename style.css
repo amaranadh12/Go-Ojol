@@ -158,17 +158,14 @@ ul#daftar-antar {
   overflow-y: auto; /* Scrollable if content overflows */
 }
 
-.notes-body input,
-.notes-body textarea {
+.notes-body textarea,
+.notes-body input {
   width: 100%;
   padding: 8px;
   border: 1px solid #ddd;
   border-radius: 8px;
   margin-bottom: 10px;
-}
-
-.notes-body textarea {
-  min-height: 80px;
+  white-space: pre-wrap; /* Membungkus teks di dalam textarea atau input */
 }
 
 .notes-body button#save-note {
@@ -200,7 +197,8 @@ ul#daftar-antar {
   border: 1px solid #ccc;
   border-radius: 10px;
   position: relative;
-  word-wrap: break-word;
+  word-wrap: break-word; /* Membungkus teks jika terlalu panjang */
+  white-space: pre-wrap; /* Membungkus teks dengan benar, termasuk spasi */
 }
 
 .note-item a {
