@@ -1,120 +1,284 @@
+/* General */
+body, p, h1, h2, h3, h4, h5, h6, input, label, button, a, div, span {
+  font-family: 'Nunito', sans-serif;
+}
+
 body {
-  font-family: nunito, sans-serif;
+  background-image: url('Bg.PNG');
+  background-repeat: repeat;
+  background-size: 300px 300px;
+  background-position: top left;
+  margin: 0;
   padding: 20px;
-  background-color: #f5f5f5;
+  color: #333;
 }
 
-h1 {
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: -1;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Title */
+h1, h2 {
   text-align: center;
+  color: #2c3e50;
 }
 
-.form-container {
+/* Sections */
+.form-section, .hasil-section {
+  background: #ffffff;
+  padding: 20px;
   margin-bottom: 20px;
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  justify-content: center;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
 }
 
-.form-container input,
-.form-container button {
+/* Inputs */
+.input-group {
+  margin-bottom: 15px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.input-group input {
+  width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 8px;
+  transition: border-color 0.3s;
 }
 
-.form-container button {
-  background-color: #28a745;
-  color: white;
+.input-group input:focus {
+  border-color: #4CAF50;
+  outline: none;
+}
+
+/* Buttons */
+.button-group {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.btn-primary, .btn-secondary {
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
   cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+  font-size: 16px;
 }
 
-.form-container button:hover {
-  background-color: #218838;
+.full-width {
+  width: 100%;
 }
 
-.info-container {
-  background: white;
-  padding: 15px;
-  border-radius: 10px;
+.btn-primary {
+  background: #27ae60;
+  color: #fff;
 }
 
-#daftar-antar li {
-  margin-bottom: 5px;
+.btn-primary:hover {
+  background: #219150;
+  transform: scale(1.03);
 }
 
-.popup {
+.btn-secondary {
+  background: #e74c3c;
+  color: #fff;
+}
+
+.btn-secondary:hover {
+  background: #c0392b;
+  transform: scale(1.03);
+}
+
+.reset-wrapper {
+  margin-top: 30px;
+}
+
+/* List styling */
+ul#daftar-antar {
+  list-style-type: none;
+  padding-left: 20px;
+}
+
+/* Notes Popup */
+.notes-popup {
   position: fixed;
-  bottom: 10px;
-  right: 10px;
-  width: 320px;
+  bottom: 80px;
+  right: 20px;
+  width: 300px;
+  height: 500px; /* Updated for larger popup */
   background: white;
-  border: 2px solid #28a745;
-  border-radius: 10px;
-  padding: 10px;
-  display: none;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-  z-index: 100;
+  border: 2px solid #4CAF50;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  overflow: hidden;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  animation: fadeIn 0.3s ease;
 }
 
-.popup-header {
+.notes-popup.hidden {
+  display: none;
+}
+
+.notes-header {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.popup-header button {
-  background: none;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-  color: #888;
-}
-
-.popup-icon {
-  position: fixed;
-  bottom: 10px;
-  right: 10px;
-  background-color: #28a745;
-  color: white;
-  padding: 10px 15px;
-  border-radius: 50px;
-  cursor: pointer;
-  font-weight: bold;
-  display: none;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-}
-
-.input-group {
+.notes-body {
+  flex: 1;
+  padding: 10px;
   display: flex;
-  gap: 5px;
+  flex-direction: column;
+  overflow-y: auto; /* Scrollable if content overflows */
+}
+
+.notes-body input,
+.notes-body textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
   margin-bottom: 10px;
 }
 
-.input-group input,
-.input-group button {
+.notes-body textarea {
+  min-height: 80px;
+}
+
+.notes-body button#save-note {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.notes-body button#save-note:hover {
+  background-color: #45a049;
+}
+
+#notes-list {
+  margin-top: 10px;
   flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-right: 5px;
 }
 
 .note-item {
-  background: #eee;
-  margin: 5px 0;
-  padding: 8px;
-  border-radius: 5px;
+  background: #f9f9f9;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
   position: relative;
+  word-wrap: break-word;
 }
 
-.note-item button {
-  background: red;
+.note-item a {
+  color: #2196F3;
+  text-decoration: none;
+}
+
+.delete-note {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  background: transparent;
   border: none;
-  color: white;
-  padding: 2px 6px;
-  margin-left: 5px;
+  color: red;
+  font-size: 16px;
   cursor: pointer;
-  font-size: 14px;
-  border-radius: 3px;
 }
 
-.note-item .edit-note {
-  background: orange;
+/* Edit Note */
+.edit-note {
+  position: absolute;
+  top: 5px;
+  left: 10px;
+  background: transparent;
+  border: none;
+  color: #4CAF50;
+  font-size: 16px;
+  cursor: pointer;
 }
+
+/* Notes Icon */
+.notes-icon {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #4CAF50;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.notes-icon.hidden {
+  display: none;
+}
+
+.notes-icon img {
+  width: 30px;
+  height: 30px;
+}
+
+/* Scrollbar untuk notes list */
+#notes-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+#notes-list::-webkit-scrollbar-thumb {
+  background-color: #4CAF50;
+  border-radius: 10px;
+}
+
+#notes-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+  }
