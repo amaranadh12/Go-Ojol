@@ -1,7 +1,7 @@
 let riwayatAntar = JSON.parse(localStorage.getItem("riwayatAntar")) || [];
-let daftarBarang = [];
-let editIndex = -1;
+let editIndex = -1; // Tambahan untuk fitur edit notes
 
+// Fungsi format rupiah
 function formatRupiah(angka) {
   return 'Rp ' + angka.toLocaleString('id-ID');
 }
@@ -18,7 +18,6 @@ function tambahOngkir() {
     document.getElementById("dari").value = "";
     document.getElementById("ke").value = "";
     document.getElementById("ongkir").value = "";
-
     alert("Antar ditambahkan!");
     hitung();
   } else {
@@ -76,9 +75,24 @@ function hitung() {
 function reset() {
   riwayatAntar = [];
   localStorage.removeItem("riwayatAntar");
-  document.querySelectorAll('input').forEach(input => input.value = '');
-  document.querySelectorAll('p').forEach(p => p.innerText = '');
-  document.getElementById('daftar-antar').innerHTML = '';
+
+  document.getElementById("dari").value = "";
+  document.getElementById("ke").value = "";
+  document.getElementById("ongkir").value = "";
+  document.getElementById("modal").value = "";
+  document.getElementById("bensin").value = "";
+  document.getElementById("jajan").value = "";
+  document.getElementById("target").value = "";
+
+  document.getElementById("info-ongkir").innerText = "";
+  document.getElementById("daftar-antar").innerHTML = "";
+  document.getElementById("info-iuran").innerText = "";
+  document.getElementById("info-operasional").innerText = "";
+  document.getElementById("pendapatan-kotor").innerText = "";
+  document.getElementById("pendapatan-bersih").innerText = "";
+  document.getElementById("hasil-final").innerText = "";
+  document.getElementById("motivasi").innerText = "";
+  document.getElementById("uang-sekarang").innerText = "";
 }
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -87,87 +101,58 @@ window.addEventListener('DOMContentLoaded', () => {
     hitung();
   }
 
+  // Notes Popup
   const popup = document.getElementById('notes-popup');
   const icon = document.getElementById('notes-icon');
   const minimizeBtn = document.getElementById('minimize-btn');
+  const saveBtn = document.getElementById('save-note');
+  const notesList = document.getElementById('notes-list');
 
   loadNotes();
   icon.classList.remove('hidden');
 
   minimizeBtn.addEventListener('click', () => {
-    popup.style.display = 'none';
+    popup.classList.add('hidden');
     icon.classList.remove('hidden');
   });
 
   icon.addEventListener('click', () => {
-    popup.style.display = 'block';
+    popup.classList.remove('hidden');
     icon.classList.add('hidden');
   });
-});
 
-// NOTE SYSTEM
-document.getElementById('tambah-barang').addEventListener('click', () => {
-  const namaBarang = document.getElementById('nama-barang').value.trim();
-  const hargaBarang = parseInt(document.getElementById('harga-barang').value);
+  saveBtn.addEventListener('click', () => {
+    const nama = document.getElementById('nama').value.trim();
+    const noWa = document.getElementById('no-wa').value.trim();
+    const isi = document.getElementById('isi-catatan').value.trim();
 
-  if (namaBarang && !isNaN(hargaBarang)) {
-    daftarBarang.push({ nama: namaBarang, harga: hargaBarang });
-    document.getElementById('nama-barang').value = '';
-    document.getElementById('harga-barang').value = '';
-    renderBarangList();
-  } else {
-    alert('Isi nama barang dan harga dengan benar.');
-  }
-});
+    if (nama && noWa && isi) {
+      const notes = JSON.parse(localStorage.getItem('notes') || '[]');
+      const date = new Date().toLocaleDateString();
 
-function renderBarangList() {
-  const barangList = document.getElementById('barang-list');
-  barangList.innerHTML = daftarBarang.map((b, i) => 
-    `<div>${i+1}. ${b.nama} - ${formatRupiah(b.harga)} 
-     <button onclick="hapusBarang(${i})" style="color:red;">Hapus</button></div>`).join('');
-}
+      if (editIndex === -1) {
+        notes.push({ nama, noWa, isi, date });
+      } else {
+        notes[editIndex] = { nama, noWa, isi, date };
+        editIndex = -1;
+      }
 
-function hapusBarang(index) {
-  daftarBarang.splice(index, 1);
-  renderBarangList();
-}
+      localStorage.setItem('notes', JSON.stringify(notes));
 
-document.getElementById('save-note').addEventListener('click', () => {
-  const catatanTambahan = document.getElementById('catatan-tambahan').value.trim();
-  if (daftarBarang.length === 0) {
-    alert('Minimal masukkan 1 barang.');
-    return;
-  }
-
-  const totalHarga = daftarBarang.reduce((sum, b) => sum + b.harga, 0);
-  const date = new Date().toLocaleString('id-ID');
-
-  const notes = JSON.parse(localStorage.getItem('notes') || '[]');
-
-  const newNote = {
-    barang: daftarBarang,
-    totalHarga,
-    catatanTambahan,
-    date
-  };
-
-  if (editIndex === -1) {
-    notes.push(newNote);
-  } else {
-    notes[editIndex] = newNote;
-    editIndex = -1;
-  }
-
-  localStorage.setItem('notes', JSON.stringify(notes));
-  daftarBarang = [];
-  document.getElementById('catatan-tambahan').value = '';
-  renderBarangList();
-  loadNotes();
+      document.getElementById('nama').value = '';
+      document.getElementById('no-wa').value = '';
+      document.getElementById('isi-catatan').value = '';
+      loadNotes();
+    } else {
+      alert('Isi semua field ya!');
+    }
+  });
 });
 
 function loadNotes() {
   const notesList = document.getElementById('notes-list');
   notesList.innerHTML = '';
+
   const notes = JSON.parse(localStorage.getItem('notes') || '[]');
 
   notes.forEach((note, index) => {
@@ -175,9 +160,9 @@ function loadNotes() {
     div.className = 'note-item';
     div.innerHTML = `
       <small><b>${note.date}</b></small><br/>
-      <ul>${note.barang.map(b => `<li>${b.nama} - ${formatRupiah(b.harga)}</li>`).join('')}</ul>
-      <b>Total: ${formatRupiah(note.totalHarga)}</b><br/>
-      ${note.catatanTambahan ? `<i>Catatan: ${note.catatanTambahan}</i><br/>` : ''}
+      <b>${note.nama}</b><br/>
+      <a href="https://wa.me/${note.noWa}" target="_blank">${note.noWa}</a><br/>
+      <p>${note.isi}</p>
       <button class="edit-note" onclick="editNote(${index})">Edit</button>
       <button class="delete-note" onclick="deleteNote(${index})">&times;</button>
     `;
@@ -195,8 +180,12 @@ window.deleteNote = function(index) {
 window.editNote = function(index) {
   const notes = JSON.parse(localStorage.getItem('notes') || '[]');
   const note = notes[index];
-  daftarBarang = note.barang;
-  document.getElementById('catatan-tambahan').value = note.catatanTambahan;
-  renderBarangList();
+
+  document.getElementById('nama').value = note.nama;
+  document.getElementById('no-wa').value = note.noWa;
+  document.getElementById('isi-catatan').value = note.isi;
+
   editIndex = index;
+  document.getElementById('notes-popup').classList.remove('hidden');
+  document.getElementById('notes-icon').classList.add('hidden');
 };
